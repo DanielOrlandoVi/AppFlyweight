@@ -29,18 +29,24 @@ public class Cliente {
             int cont = 0; //Contador para los codigos de barras
             switch (opcionGaseosa) {
                 case "Postobon Uva 100ml":
+                    //Se verifica si la referencia esta en el hashmap, sino, se crea una vez, si esta, la devuelve sin crear nada mas
                     TipoGaseosa tipoGaseosa = FabricaTipoGaseosa.getGaseosa("Postobon Uva 100ml", 1000); // Supongamos que el precio es 1000
                     
-                    StringBuilder datosGaseosasP = new StringBuilder(); //Concatenamos los datos de las gaseosas para imprimirlos
+                    StringBuilder datosGaseosasP = new StringBuilder(); //Concatenamos los datos de las gaseosas para imprimirlos en pantalla
+                    
                     for (int i = 0; i < numUnidades; i++) {
                     cont = i;
                     int codBarras = cont; // crea un codigo de barras unico por cada gaseosa
+                    //ahorro de memoria ya que tipoGaseosa solo se creo solo una vez
+                    //Creamos las gaseosas particulares usando los datos generales a traves de tipoGaseosas(ahorro memoria)
                     Gaseosa gaseosa = new Gaseosa(codBarras, tipoGaseosa);
+                    //Contatenamos datos en arreglo para imprimir en pantalla
                     datosGaseosasP.append(gaseosa.mostrarDatos()).append("\n");
                     }
                     //Imprimos los datos de todas las gaseosas en un solo joptionpane
                     JOptionPane.showMessageDialog(null, datosGaseosasP);
                     break;
+                    
                 case "Colombiana 500ml":
                     tipoGaseosa = FabricaTipoGaseosa.getGaseosa("Colombiana 500ml", 2000); // Supongamos que el precio es 2000
 
@@ -48,6 +54,7 @@ public class Cliente {
                     for (int i = 0; i < numUnidades; i++) {
                     cont = i;
                     int codBarras = cont; // crea un codigo de barras unico por cada gaseosa
+                    //Creamos las gaseosas particulares usando los datos generales a traves de tipoGaseosas(ahorro memoria)
                     Gaseosa gaseosa = new Gaseosa(codBarras, tipoGaseosa);
                     datosGaseosasC.append(gaseosa.mostrarDatos()).append("\n");
                     }

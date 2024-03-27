@@ -25,7 +25,6 @@ public class FabricaTipoGaseosa {
             //Esa nueva instancia se agrega al hashmap
             TiposGaseosa.put(nombre, resultado);
             JOptionPane.showMessageDialog(null, "Creando gaseosa: " + nombre);
-            //JOptionPane.showMessageDialog(null, "Creando gaseosa: " + nombre);
         }
         //En caso de que si este el tipo de gaseosa en el hashmap, que solo lo devuelva y no cree nuevas instancias
         return resultado;
