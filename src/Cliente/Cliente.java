@@ -28,8 +28,24 @@ public class Cliente {
             
             int numUnidades = 0;   
             if (!opcionGaseosa.equals("Finalizar pedido")){
-                numUnidades = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese el numero de gaseosas a producir:"));
+                boolean alpha = false;
+                try{
+                    numUnidades = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese el numero de gaseosas a producir:"));
+                }
+                catch (Exception e) {
+                    alpha = true;
+                }
+                while (numUnidades < 1 || alpha){
+                    try{
+                        numUnidades = Integer.parseInt(JOptionPane.showInputDialog(null,"Porfavor ingrese un número de unidades valido\n\nIngrese el numero de gaseosas a producir:"));
+                        alpha = false;
+                    }
+                    catch (Exception e) {
+                        alpha = true;
+                    }
+                }
             }
+        
             
             int cont = 0; //Contador para los codigos de barras
             int codBarras = 0;
