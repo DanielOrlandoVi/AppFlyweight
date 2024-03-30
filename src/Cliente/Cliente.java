@@ -13,8 +13,9 @@ public class Cliente {
 
     public static void main(String[] args) {
         Random random = new Random();
-        String gaseosas[] = {"Postobon Uva 100ml", "Colombiana 500ml"};
-        
+        String gaseosas[] = {"Postobon Uva 100ml", "Colombiana 500ml", "Finalizar pedido"};
+        StringBuilder datosGaseosas = new StringBuilder(); //Concatenamos los datos de las gaseosas para imprimirlos en pantalla
+
         while (true) {
 
             String opcionGaseosa = (String) JOptionPane.showInputDialog(null, "Seleccione una gaseosa:", "Seleccion de gaseosa",
@@ -25,17 +26,19 @@ public class Cliente {
                 break;
             }
             
-            int numUnidades = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese el numero de gaseosas a producir:"));   
-            
+            int numUnidades = 0;   
+            if (!opcionGaseosa.equals("Finalizar pedido")){
+                numUnidades = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese el numero de gaseosas a producir:"));
+            }
             
             int cont = 0; //Contador para los codigos de barras
             int codBarras = 0;
+          
             switch (opcionGaseosa) {
                 case "Postobon Uva 100ml":
                     //Se verifica si la referencia esta en el hashmap, sino, se crea una vez, si esta, la devuelve sin crear nada mas
                     TipoGaseosa tipoGaseosa = FabricaTipoGaseosa.getGaseosa("Postobon Uva 100ml", 1000); // Supongamos que el precio es 1000
                     
-                    StringBuilder datosGaseosasP = new StringBuilder(); //Concatenamos los datos de las gaseosas para imprimirlos en pantalla
                     
                     for (int i = 0; i < numUnidades; i++) {
                     cont = random.nextInt(1000);
@@ -47,16 +50,13 @@ public class Cliente {
                     //Creamos las gaseosas particulares usando los datos generales a traves de tipoGaseosas(ahorro memoria)
                     Gaseosa gaseosa = new Gaseosa(codBarras, tipoGaseosa);
                     //Contatenamos datos en arreglo para imprimir en pantalla
-                    datosGaseosasP.append(gaseosa.mostrarDatos()).append("\n");
+                    datosGaseosas.append(gaseosa.mostrarDatos()).append("\n");
                     }
                     //Imprimos los datos de todas las gaseosas en un solo joptionpane
-                    JOptionPane.showMessageDialog(null, datosGaseosasP);
                     break;
-                    
                 case "Colombiana 500ml":
                     tipoGaseosa = FabricaTipoGaseosa.getGaseosa("Colombiana 500ml", 2000); // Supongamos que el precio es 2000
 
-                    StringBuilder datosGaseosasC = new StringBuilder(); //Concatenamos los datos de las gaseosas para imprimirlos
                     for (int i = 0; i < numUnidades; i++) {
                         cont = random.nextInt(1000);
                         while (codBarras == cont){
@@ -65,12 +65,15 @@ public class Cliente {
                         codBarras = cont; // crea un codigo de barras unico por cada gaseosa
                         //Creamos las gaseosas particulares usando los datos generales a traves de tipoGaseosas(ahorro memoria)
                     Gaseosa gaseosa = new Gaseosa(codBarras, tipoGaseosa);
-                    datosGaseosasC.append(gaseosa.mostrarDatos()).append("\n");
+                    datosGaseosas.append(gaseosa.mostrarDatos()).append("\n");
                     }
-                    //Imprimos los datos de todas las gaseosas en un solo joptionpane
-                    JOptionPane.showMessageDialog(null, datosGaseosasC);
                     break;
-                    
+                //Imprimos los datos de todas las gaseosas en un solo joptionpane
+                case "Finalizar pedido":
+                    JOptionPane.showMessageDialog(null, datosGaseosas);
+                    datosGaseosas = new StringBuilder();
+                    break;
+
                 default:
                     JOptionPane.showMessageDialog(null, "Tipo de gaseosa no válido.");
                     return;

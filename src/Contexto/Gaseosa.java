@@ -3,6 +3,7 @@ package Contexto;
 
 import Flyweight.TipoGaseosa;
 import javax.swing.JOptionPane;
+
 public class Gaseosa{
 
     private int codBarras;
